@@ -2,17 +2,20 @@
   description = "cardano-ogmios";
 
   inputs = {
+
+    # Get ogmios from CardanoSolutions (no native Nix build).
     ogmios = {
       type = "git";
-      url = "https://github.com/jefdaj/ogmios-nix.git";
+      url = "https://github.com/CardanoSolutions/ogmios.git";
+      # ref = "refs/tags/v7.0.0"; # TODO release rather than master?
       # ogmios 6.8+ uses submodules for deps
       submodules = true;
       flake = false;
     };
-    haskellNix = {
-      url = "github:input-output-hk/haskell.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    # Use haskellNix, and IOG binary cache (see nixConfig below) if allowed.
+    nixpkgs.follows = "haskellNix/nixpkgs-unstable";
+    haskellNix.url = "github:input-output-hk/haskell.nix";
     CHaP = {
       url = "github:intersectMBO/cardano-haskell-packages/repo";
       flake = false;
@@ -21,9 +24,9 @@
       url = "github:input-output-hk/iohk-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.follows = "haskellNix/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     config.url = "github:input-output-hk/empty-flake";
+
   };
 
   outputs = { self, ogmios, iohkNix, haskellNix, CHaP, nixpkgs, flake-utils, config, ... }:

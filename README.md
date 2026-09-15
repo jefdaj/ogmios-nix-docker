@@ -13,5 +13,5 @@ Usage:
 ```
 nix build .#dockerImage
 docker load < result
-docker image ls jefdaj/ogmios-nix
+docker image ls jefdaj/ogmios-nix-docker
 ```

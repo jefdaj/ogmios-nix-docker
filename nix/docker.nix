@@ -1,7 +1,7 @@
 { pkgs, ogmios-exe }:
 
 pkgs.dockerTools.buildLayeredImage {
-  name = "jefdaj/ogmios-nix";
+  name = "jefdaj/ogmios-nix-docker";
   tag = "latest";
 
   contents = [ ogmios-exe ];
